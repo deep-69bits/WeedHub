@@ -105,7 +105,7 @@ const weed = () => {
             </div>
           </div>
           <button
-            class="rounded bg-blue-500 hover:bg-blue-700 py-2 px-4 text-white"
+            class="block mx-auto text-white font-light border rounded-lg px-4 py-2 hover:border-blue-800 hover:text-blue-800"
             onClick={() => {
               handleClick(
                 "0.00005",

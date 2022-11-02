@@ -95,7 +95,7 @@ const index = () => {
           </div>
           <button
             type="button"
-            className="mt-5 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+            className="block mt-5 mx-auto text-white font-light border rounded-lg px-4 py-2 hover:border-blue-800 hover:text-blue-800"
           >
             <Link href="/Buy/id">BUY</Link>
           </button>

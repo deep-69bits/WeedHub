@@ -5,14 +5,26 @@ import HEAD from "../components/HEAD";
 import { Animatedtext } from "../components/Animatedtext";
 import { motion } from "framer-motion";
 import { ethers } from "ethers";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+
 
 export default function Home() {
   const [state, setState] = useState("Connect");
-
+  const [Window, setWindow] = useState(false);
+  const [loading, setLoading] = useState(false);
+  
+  useEffect(()=>{
+    if(typeof window.ethereum !== "undefined" ){
+      console.log(typeof window.ethereum);
+      setWindow(true)
+    }
+    setLoading(!loading)
+  },[])
+ 
+  
   const handleClick = async () => {
     if (typeof window.ethereum !== "undefined") {
-      await window.ethereum.request({ method: "eth_requestAccounts" });
+      await  window.ethereum.request({ method: "eth_requestAccounts" });
 
       console.log("Connected!");
       // connectButton.innerHTML = "Connected";
@@ -51,9 +63,9 @@ export default function Home() {
         <Animatedtext text="Welcome to WeedHub " />
         <Animatedtext text="You can buy and sell all types of weed here ..." />
       </div>
-      {window.ethereum ? (
+      {  Window ? (
         <button
-          className="block mx-auto text-white font-light border rounded-lg px-4 py-2 hover:border-blue-800 hover:text-blue-800"
+          className="block mt-10 mx-auto text-white font-light border rounded-lg px-4 py-2 hover:border-blue-800 hover:text-blue-800"
           onClick={handleClick}
         >
           {state}
@@ -61,7 +73,7 @@ export default function Home() {
       ) : (
         <h1
           text="You need to install metamask"
-          className="text-blue-800 text-center"
+          className="text-blue-800  text-center"
         >
           You need to install <span className="text-orange-700">Metamask</span>{" "}
           !!!!
