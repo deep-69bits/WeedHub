@@ -2,7 +2,8 @@ import HEAD from "../../components/HEAD";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Rating } from "../../components/Rating";
-
+import { ethers } from "ethers";
+import { abi, contractAddress } from "../../constants";
 const weed = () => {
   const img =
     "https://media3.giphy.com/media/3o8dFDfk3hEnnWhxiE/giphy.gif?cid=ecf05e47fh4eqcf5i17c23zo6iaug16xyhxqhsr60dqry78u&amp;rid=giphy.gif&amp;ct=g";
@@ -24,10 +25,35 @@ const weed = () => {
       },
     },
   };
-  const animationConfiguration = {  
+  const animationConfiguration = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
     exit: { opacity: 0 },
+  };
+
+  const handleClick = async (amount, sellerAddress) => {
+    window.alert(amount);
+    console.log(`funding with ${amount}....`);
+    if (typeof window.ethereum !== "undefined") {
+      const provider = new ethers.providers.Web3Provider(window.ethereum); //http endpoint for metamask
+      const signer = provider.getSigner(); //gets the account connected to web app
+      console.log({
+        provider,
+        signer,
+      });
+      const contract = new ethers.Contract(contractAddress, abi, signer);
+      console.log(contract);
+      try {
+        const transactionResponse = await contract.sendViaCall(sellerAddress, {
+          value: ethers.utils.parseEther(amount),
+        });
+        await transactionResponse.wait(6);
+        console.log(transactionResponse);
+      } catch (e) {
+        console.log(e);
+        
+      }
+    }
   };
 
   return (
@@ -78,7 +104,17 @@ const weed = () => {
               <span>$10</span>
             </div>
           </div>
-          <button class="rounded bg-blue-500 hover:bg-blue-700 py-2 px-4 text-white"> BUY</button>
+          <button
+            class="rounded bg-blue-500 hover:bg-blue-700 py-2 px-4 text-white"
+            onClick={() => {
+              handleClick(
+                "0.00005",
+                "0xe5678f6383b81a413aad68579029f2d88d7ce6c3"
+              );
+            }}
+          >
+            BUY
+          </button>
         </motion.div>
       </div>
     </motion.div>

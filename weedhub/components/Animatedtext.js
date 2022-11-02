@@ -34,7 +34,7 @@ export const Animatedtext = (props) => {
   };
   return (
     <motion.div 
-    className=" text-center justify-center "
+    className="font-thin text-center justify-center "
       style={{ overflow: "hidden", display: "flex", fontSize: "2rem" ,marginLeft: "10px"}}
       variants={container}
       initial="hidden"
