@@ -18,8 +18,37 @@ mongoose.connect("mongodb://localhost:27017/abcd", {
     console.log("DB connected")
 })
 
+const userSchema = new mongoose.Schema({
+    Name: String,
+    Price : Number,
+    Location: String,
+    Type: String,
+    Quality: String,
+})
 
-
+const User = new mongoose.model("User", userSchema)
+app.post("/register", (req, res)=> {
+    const { Name, Price, Location ,Type,Quality} = req.body
+     {
+          {
+            const user = new User({
+                Name,
+                Price,
+                Location,
+                Type,
+                Quality
+            })
+            user.save(err => {
+                if(err) {
+                    res.send(err)
+                } else {
+                    res.send( { message: "Your product succesfully saved" })
+                }
+            })
+        }
+    }
+    
+}) 
 
 
 

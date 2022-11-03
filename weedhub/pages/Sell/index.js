@@ -1,102 +1,159 @@
 import React from "react";
 import { Animatedtext } from "../../components/Animatedtext";
 import HEAD from "../../components/HEAD";
+import { useState } from "react";
+import axios from "axios";
+import { motion } from "framer-motion";
 
 const index = () => {
   const img = "https://media.tenor.com/q7UwhQ7Z0qoAAAAC/smoke.gif";
   const styling = {
     backgroundImage: `url('${img}')`,
   };
+
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState({
+    Name: "",
+    Price: "",
+    Location: "",
+    Type: "",
+    Quality: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+
+    setLoading(!loading);
+  };
+
+  const register = () => {
+    const { Name, Price, Location, Type, Quality } = user;
+    if (Name && Price && Location && Type && Quality) {
+      axios.post("http://localhost:9000/register", user).then((res) => {
+        alert(res.data.message);
+      });
+    } else {
+      alert("invlid input");
+    }
+  };
+  const animationConfiguration = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 },
+  };
+  const list = [
+    {
+      title: "Orange",
+      price: "$5.50",
+    },
+  ];
+  const fadeInUp = {
+    initial: {
+      y: 60,
+      opacity: 0,
+      transition: { duration: 1 },
+    },
+    animate: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 1,
+      },
+    },
+  };
+
+  const stagger = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
   return (
-    <div className="w-screen h-screen bg-no-repeat bg-cover " style={styling}>
+    <motion.div
+      className="w-screen h-screen bg-no-repeat bg-cover "
+      style={styling}
+      variants={animationConfiguration}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
       <HEAD />
-      <Animatedtext className="-mt-96" text="Sell your weed here" />
-      <div>
-        <form action="" className="w-1/4">
-          <div class="mb-4">
-            <label
-              class="block text-gray-700 text-sm font-bold mb-2"
-              for="name"
-            >
-              Name
-            </label>
+      <div className="mt-20">
+        <Animatedtext className="" text="Sell your weed here" />
+      </div>
+      <div className="w-1/5 mt-10 m-auto">
+        <div className="grid grid-cols-1 gap-6">
+          <label className="block">
+            <span className="text-gray-100">Name </span>
             <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="name"
+              value={user.Name}
+              name="Name"
+              onChange={handleChange}
               type="text"
-              placeholder="Text input"
+              className="mt-1 block w-full"
+              placeholder="Anshu"
             />
-          </div>
-          <div class="mb-4">
-            <label
-              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-state"
-            >
-              Subject
-            </label>
-            <div class="relative">
-              <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                <option>Select dropdown</option>
-                <option>With options</option>
-              </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  class="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <div class="mb-4">
-            <label class="block">
-              <input class="mr-2 leading-tight" type="checkbox" />
-              <span class="text-sm">I agree this</span>
-            </label>
-          </div>
-          <div class="mb-4">
-            <label class="inline-flex items-center">
-              <input
-                type="radio"
-                class="form-radio"
-                name="accountType"
-                value="1"
-              />
-              <span class="ml-2">Yes</span>
-            </label>
-            <label class="inline-flex items-center ml-6">
-              <input
-                type="radio"
-                class="form-radio"
-                name="accountType"
-                value="2"
-              />
-              <span class="ml-2">No</span>
-            </label>
-          </div>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">
-              Message
-              <textarea
-                class="shadow form-textarea mt-1 block  border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                rows="5"
-                placeholder="Textarea"
-              ></textarea>
-            </label>
-          </div>
-          <div class="flex items-center justify-between">
+          </label>
+          <label className="block">
+            <span className="text-gray-100">Price</span>
+            <input
+              value={user.Price}
+              name="Price"
+              onChange={handleChange}
+              type="number"
+              className="mt-1 block w-full"
+              placeholder="$10"
+            />
+          </label>
+          <label className="block">
+            <span className="text-gray-100">Location</span>
+            <input
+              value={user.Location}
+              name="Location"
+              onChange={handleChange}
+              type="text"
+              className="mt-1 block w-full"
+              placeholder="IIIT LUCKNOW"
+            />
+          </label>
+          <label className="block">
+            <span className="text-gray-100">Type</span>
+            <input
+              value={user.Tyep}
+              name="Type"
+              onChange={handleChange}
+              type="text"
+              className="mt-1 block w-full"
+              placeholder="PURPLE KUSH"
+            />
+          </label>
+          <label className="block">
+            <span className="text-gray-100">Quality</span>
+            <input
+              value={user.Quality}
+              name="Quality"
+              onChange={handleChange}
+              type="text"
+              className="mt-1 block w-full"
+              placeholder="Good"
+            />
+          </label>
+          <div className="block">
             <button
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
+              onClick={register}
+              className="block  mx-auto text-white font-light border rounded-lg px-4 py-2 hover:border-blue-800 hover:text-blue-800"
             >
-              Submit
+              Sell
             </button>
           </div>
-        </form>
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

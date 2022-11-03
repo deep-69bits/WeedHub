@@ -45,7 +45,7 @@ export const Animatedtext = (props) => {
         <motion.span
         variants={child}
         style={{ marginRight: "10px" }}
-        className="text-white text-center "
+        className="text-white text-center font-black "
         key={index}
         >
         {word}
