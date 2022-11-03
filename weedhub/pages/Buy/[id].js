@@ -3,6 +3,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Rating } from "../../components/Rating";
 import { ethers } from "ethers";
+
 import { abi, contractAddress } from "../../constants";
 const weed = () => {
   const img =
@@ -51,7 +52,6 @@ const weed = () => {
         console.log(transactionResponse);
       } catch (e) {
         console.log(e);
-        
       }
     }
   };

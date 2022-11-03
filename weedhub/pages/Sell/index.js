@@ -1,8 +1,9 @@
 import React from "react";
 import { Animatedtext } from "../../components/Animatedtext";
 import HEAD from "../../components/HEAD";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { ethers } from "ethers";
 import { motion } from "framer-motion";
 
 const index = () => {
@@ -10,18 +11,36 @@ const index = () => {
   const styling = {
     backgroundImage: `url('${img}')`,
   };
-
-  const [loading, setLoading] = useState(true);
+  var acc;
   const [user, setUser] = useState({
     Name: "",
     Price: "",
     Location: "",
     Type: "",
     Quality: "",
+    SellerAddress: "",
   });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      async function run() {
+        const provider = new ethers.providers.Web3Provider(window.ethereum); //http endpoint for metamask
+        const signer = provider.getSigner();
+        acc = await signer.getAddress();
+        console.log(acc);
+        setUser({
+          ...user,
+          SellerAddress: acc,
+        });
+      }
+      run();
+    }
+  }, []);
+  const [loading, setLoading] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setUser({
       ...user,
       [name]: value,
@@ -30,12 +49,23 @@ const index = () => {
     setLoading(!loading);
   };
 
-  const register = () => {
-    const { Name, Price, Location, Type, Quality } = user;
-    if (Name && Price && Location && Type && Quality) {
-      axios.post("http://localhost:9000/register", user).then((res) => {
-        alert(res.data.message);
-      });
+  const register = async () => {
+    // setLoading(!loading);
+    console.log(user);
+    const { Name, Price, Location, Type, Quality, SellerAddress } = user;
+
+    if (Name && Price && Location && Type && Quality && SellerAddress) {
+      try {
+        axios
+          .post("http://localhost:9000/register", user, {
+            headers: { "Content-Type": "application/json" },
+          })
+          .then((res) => {
+            alert(res.data.message);
+          });
+      } catch (error) {
+        console.error(error.response.data);
+      }
     } else {
       alert("invlid input");
     }
@@ -143,6 +173,7 @@ const index = () => {
               placeholder="Good"
             />
           </label>
+
           <div className="block">
             <button
               onClick={register}
