@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { motion } from "framer-motion";
 import HEAD from "../../components/HEAD";
 import { Card, Grid, Text, Button, Row } from "@nextui-org/react";
@@ -15,12 +15,7 @@ const index = () => {
     animate: { opacity: 1 },
     exit: { opacity: 0 },
   };
-  const list = [
-    {
-      title: "Orange",
-      price: "$5.50",
-    },
-  ];
+
   const fadeInUp = {
     initial: {
       y: 60,
@@ -35,28 +30,22 @@ const index = () => {
       },
     },
   };
+  
+  const [arr,setArr]=useState([])
 
-  const stagger = {
-    animate: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-  const [productInfo, setProductInfo] = useState("");
   const [loading, setLoading] = useState(false);
-  async function run() {
-    const res = await axios.get(`http://localhost:9000/`);
-    const arr = [...res.data];
-    setProductInfo(arr);
-    setLoading(!loading);
-  }
-  useEffect(() => {
-    run();
-    setLoading(!loading);
-  }, []);
+  
+ 
 
-  console.log(productInfo);
+  useEffect(() => {
+    axios.get(`http://localhost:9000/`).then((res)=>{
+      setArr([...res.data]);
+      setLoading(!loading);
+    }
+    )
+   
+  }, []);
+  console.log(arr);
 
   return (
     <motion.div
@@ -69,56 +58,65 @@ const index = () => {
       transition={{ duration: 0.5 }}
     >
       <HEAD />
-      {Array.from(productInfo).map((user, i) => {
+      
         return (
-          <motion.div key={i} className="w-2/3 variants={stagger} m-auto flex">
-            <motion.div
-              className="block p-6 rounded-lg shadow-lg bg-black max-w-sm"
+          
+          <motion.div  className="w-2/3 variants={stagger} m-auto flex">
+          {
+
+            arr.map((items)=>{
+             return(
+
+               <motion.div
+               className="block p-6 rounded-lg shadow-lg bg-black max-w-sm"
               variants={fadeInUp}
-            >
+              >
               <motion.img
                 initial={{ x: 60, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.5 }}
                 src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/9-point-cannabis-leaf-black-background-luke-moore.jpg "
                 alt=""
-              />
-              <div className=" flex justify-between ">
+                />
+                <div className=" flex justify-between ">
                 <span className="text-white text-xl leading-tight font-medium mb-2 inline-block">
-                  WEED
+                WEED  
                 </span>
                 <span className="text-white mr text-xl leading-tight font-medium mb-2 inline-block">
                   $10
-                </span>
-              </div>
-              <div className="">
-                <div className="text-white flex  justify-between">
+                  </span>
+                  </div>
+                  <div className="">
+                  <div className="text-white flex  justify-between">
                   <span>NAME</span>
-                  <span>ANSHU VERMA</span>
-                </div>
-                <div className="text-white flex justify-between">
+                  <span>{items.Name}</span>
+                  </div>
+                  <div className="text-white flex justify-between">
                   <span>LOCATION</span>
-                  <span>IIIT LUCKNOW</span>
-                </div>
-                <div className="text-white flex justify-between">
+                  <span>{items.Location}</span>
+                  </div>
+                  <div className="text-white flex justify-between">
                   <span>QUALITY</span>
-                  <span>GOOD</span>
+                  <span>{items.Quality}</span>
                 </div>
                 <div className="text-white flex justify-between">
-                  <span>TYPE</span>
-                  <span>Purple Kush</span>
+                <span>TYPE</span>
+                <span>{items.Type}</span>
                 </div>
-              </div>
-              <button
+                
+                </div>
+                <button
                 type="button"
                 className="block mt-5 mx-auto text-white font-light border rounded-lg px-4 py-2 hover:border-blue-800 hover:text-blue-800"
-              >
-                <Link href="/Buy/id">BUY</Link>
-              </button>
-            </motion.div>
-          </motion.div>
+                >
+                <Link href={`/Buy/${items.SellerAddress}`}>BUY</Link>
+                </button>
+                </motion.div>
+                ) 
+              })}
+                </motion.div>
         );
-      })}
+      
     </motion.div>
   );
 };

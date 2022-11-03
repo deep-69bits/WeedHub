@@ -61,6 +61,7 @@ app.post("/register", (req, res) => {
   }
 });
 
+
 app.listen(9000, () => {
   console.log("BE started at port 9000");
 });

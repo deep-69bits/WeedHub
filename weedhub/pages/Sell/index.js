@@ -5,13 +5,18 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { ethers } from "ethers";
 import { motion } from "framer-motion";
+import { useRouter } from 'next/router'
+
 
 const index = () => {
+ 
+  const router = useRouter()
+
   const img = "https://media.tenor.com/q7UwhQ7Z0qoAAAAC/smoke.gif";
   const styling = {
     backgroundImage: `url('${img}')`,
   };
-  var acc;
+    
   const [user, setUser] = useState({
     Name: "",
     Price: "",
@@ -22,19 +27,23 @@ const index = () => {
   });
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      async function run() {
-        const provider = new ethers.providers.Web3Provider(window.ethereum); //http endpoint for metamask
+    const run=async()=>{
+
+      if (typeof window !== "undefined") {
+        
+        const provider = new ethers.providers.Web3Provider(window.ethereum); 
         const signer = provider.getSigner();
-        acc = await signer.getAddress();
+        const acc =  await signer.getAddress();
         console.log(acc);
         setUser({
           ...user,
           SellerAddress: acc,
         });
+        
       }
-      run();
+        
     }
+    run();
   }, []);
   const [loading, setLoading] = useState(true);
 
@@ -52,8 +61,8 @@ const index = () => {
   const register = async () => {
     // setLoading(!loading);
     console.log(user);
-    const { Name, Price, Location, Type, Quality, SellerAddress } = user;
-
+    const { Name, Price, Location, Type, Quality , SellerAddress } = user;
+    
     if (Name && Price && Location && Type && Quality && SellerAddress) {
       try {
         axios
@@ -61,7 +70,8 @@ const index = () => {
             headers: { "Content-Type": "application/json" },
           })
           .then((res) => {
-            alert(res.data.message);
+            alert(res.data.message);router.push('/Buy')
+            
           });
       } catch (error) {
         console.error(error.response.data);

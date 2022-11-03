@@ -3,9 +3,16 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Rating } from "../../components/Rating";
 import { ethers } from "ethers";
-
+import { useRouter } from 'next/router'
+import axios from "axios";
 import { abi, contractAddress } from "../../constants";
+import { useEffect } from "react";
+
 const weed = () => {
+  const router = useRouter()
+  const {id}=router.query
+  
+
   const img =
     "https://media3.giphy.com/media/3o8dFDfk3hEnnWhxiE/giphy.gif?cid=ecf05e47fh4eqcf5i17c23zo6iaug16xyhxqhsr60dqry78u&amp;rid=giphy.gif&amp;ct=g";
   const styling = {
@@ -109,7 +116,7 @@ const weed = () => {
             onClick={() => {
               handleClick(
                 "0.00005",
-                "0xe5678f6383b81a413aad68579029f2d88d7ce6c3"
+                {id}
               );
             }}
           >
