@@ -1,0 +1,273 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}body{
+    background-color: rgb(0, 0, 0);
+}
+.p1{
+    background-color: rgb(4, 4, 92);
+    background-image: linear-gradient(to right,black, rgb(4, 4, 92), black);
+
+}
+#up{
+    color: white;
+    letter-spacing: 1.1px;
+    text-align: center;   
+    transform: translateY(100px); 
+}
+
+.img1{
+    align-items: center;
+    height: 75vh;
+   
+   transform: translate(5%,-50%);
+    width: 75vh;
+}
+.p1img{
+    align-items: center;
+    text-align: center;
+}
+.img2{
+    transform: translate(-660%,-800%);
+    width: 50px;
+    animation: infinite 6s updown ;
+}
+@keyframes updown {
+    0%{
+        transform: translate(-660%,-800%);
+    }
+    50%{
+        transform: translate(-660%,-850%);
+    }
+    100%{
+        transform: translate(-660%,-800%);
+    }
+}
+.textup{
+    text-align: center;
+    transform: translateY(100px);
+}
+.Mona{
+    text-align: center;
+    display: block;
+    color: white;
+    font-size: 10rem;
+    font-weight: bold;
+    
+}
+.and{
+    text-align: center;
+    display: block;
+    color: #8b949e;
+    font-size: 10rem;
+    font-weight: bold;
+    font-family: "Mona Sans","Mona Sans Header Fallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important;
+    font-weight: 800 !important;
+    transform: translateY(-110px);
+    z-index: 1;
+    
+}
+.hubot{
+    text-align: center;
+    display: block;
+    color: white;
+    font-size: 10rem;
+    font-weight: bold;
+    transform: translateY(-230px);
+    z-index: -1;
+}
+.sans{
+    text-align: center;
+    display: block;
+    color: white;
+    font-size: 10rem;
+    font-weight: bold;
+    transform: translateY(-300px);
+    z-index: -1;
+    font-style: italic;
+}
+.p2{
+    background-color: rgb(0, 0, 0);
+    transform: translateY(-300px);
+
+}
+.onhoverbold{
+     color: white;
+    font-size: 3rem;
+    font-weight: 100;
+    margin: auto;
+    text-align: center;
+
+}
+.onhoverbold span:hover{
+    font-weight: bold;
+    font-size: 3rem;
+}
+.p2t{
+    margin: auto;
+    width: 85%;
+}
+.p2h{
+     color: white;
+     display: flex;
+     justify-content: space-between;
+}
+.p2h span{
+    font-size: 5rem;
+    font-weight: bold;
+}
+.p2m p{
+   color: white;
+   width: 65%;
+   font-size: 4rem;
+   font-weight: 900;
+
+}
+.p2m{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.sketch1{
+    width: 100%;
+
+}
+.btns{
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+.btns button{
+    padding:15px;
+    
+    background-color: transparent;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin: 20px;
+    border: none;
+    border: solid;
+    border-color: transparent;
+    border-width: 1px;
+    cursor: pointer;
+
+}
+.btns button:hover{
+    
+    border-color: white;
+   
+}
+.alpha{
+
+    color: white;
+    margin: auto;
+    width: 95%;
+    display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.alpha span{
+    font-size: 3.5rem;
+    border: solid;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+    border-width: 0.5px;
+    border-color: rgb(96, 98, 100);
+}
+.alpha span:hover{
+    font-weight: bold;
+}
+.video2{
+    width: 30%;
+}
+.hubotsans{
+    display: flex;
+    justify-content: space-between;
+     
+}
+.hubotsans div{
+    width: 65%;
+   
+    color: white;
+    display: inline-block;
+}
+.hubotsans div span{
+  font-size: 4.5rem;
+  font-weight: bold;
+}
+.hstop div{
+    display: flex;
+    justify-content: space-between;
+}
+.hstop div img{
+    float: right;
+    
+}
+.hstop p{
+    width: 80%;
+    font-size: 3rem;
+    font-weight: 400;
+}
+.btns .btn1{
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(192, 184, 184);
+}
+.p3{
+    height: 20vh;
+    background-color: blue;
+}
+.p4{
+    color: white;
+    width: 85%;
+    margin: auto;
+
+
+}
+.p4top{
+    display: flex;
+    justify-content: space-between;
+
+}
+.p4top1{
+    width: 60%;
+    font-size: 6rem;
+}
+.p4top2{
+    
+    justify-content: center;
+    width: 30%;
+
+}
+.p4top2 p{
+    float: left;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+.p4imges{
+    display: grid;
+    grid-template-columns:  1fr 1fr 1fr;
+}
+.p4imges img{
+    margin-top: 40px;
+}
+.poster1{
+    
+    transform: translateY(120px);
+}
+.poster4{
+    transform: translateY(120px);
+}
+.poster3{
+    transform: translateY(70px);
+}
+.poster6{
+    transform: translateY(70px);
+}
+
+.p5{
+    height: 30vh;
+    background-color: #d2a8ff;
+    background-image: linear-gradient(180deg, #aa60f9, #3c1e5d);
+}
